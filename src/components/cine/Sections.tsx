@@ -7,6 +7,9 @@ import studioImg from "@/assets/studio.jpg";
 import dubaiImg from "@/assets/dubai.jpg";
 import concertImg from "@/assets/concert.jpg";
 import legacyImg from "@/assets/legacy-portrait.jpg";
+import raviPortrait from "@/assets/ravi-portrait.jpg";
+import raviStage from "@/assets/ravi-stage.jpg";
+import raviEvent from "@/assets/ravi-event.jpg";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
