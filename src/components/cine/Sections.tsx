@@ -250,7 +250,7 @@ export function Stage() {
   return (
     <section id="stage" ref={ref} className="relative h-[140vh] overflow-hidden grain vignette">
       <motion.div style={{ scale }} className="absolute inset-0">
-        <img src={concertImg} alt="A vast concert crowd lit by golden spotlights" className="h-full w-full object-cover" width={1920} height={1080} loading="lazy" />
+        <img src={raviPortrait} alt="Ravi Kumar Manda speaking on stage with a microphone" className="h-full w-full object-cover" width={1920} height={1080} loading="lazy" />
         <div className="absolute inset-0 bg-background/40" />
       </motion.div>
 
@@ -599,7 +599,7 @@ export function Legacy() {
       <div className="mx-auto max-w-7xl px-6 md:px-10 grid lg:grid-cols-12 gap-16 items-center">
         <motion.div style={{ y }} className="lg:col-span-5 relative">
           <motion.div style={{ filter }} className="rounded-2xl overflow-hidden border border-gold/15">
-            <img src={legacyImg} alt="Cinematic side-profile portrait" className="w-full h-[70vh] object-cover" width={1280} height={1600} loading="lazy" />
+            <img src={raviEvent} alt="Ravi Kumar Manda — portrait at an industry event" className="w-full h-[70vh] object-cover" width={1280} height={1600} loading="lazy" />
           </motion.div>
           <div className="absolute -inset-6 -z-10 bg-gold/10 blur-3xl rounded-full" />
         </motion.div>
