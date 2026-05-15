@@ -700,3 +700,52 @@ export function Contact() {
     </section>
   );
 }
+
+/* ---------- GALLERY ---------- */
+const galleryImages = [
+  { src: raviStage, alt: "Ravi performing live on stage", span: "md:col-span-2 md:row-span-2" },
+  { src: raviPortrait, alt: "Ravi addressing an audience", span: "" },
+  { src: raviEvent, alt: "Ravi at an industry event", span: "md:row-span-2" },
+  { src: concertImg, alt: "Concert lights and crowd", span: "" },
+  { src: studioImg, alt: "Inside the recording studio", span: "md:col-span-2" },
+  { src: dubaiImg, alt: "Dubai skyline at golden hour", span: "" },
+];
+
+export function Gallery() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const y = useTransform(scrollYProgress, [0, 1], ["8%", "-8%"]);
+  return (
+    <section id="gallery" ref={ref} className="relative py-40 overflow-hidden">
+      <div className="mx-auto max-w-7xl px-6 md:px-10">
+        <SectionLabel n="07" label="Frames From The Journey" />
+        <Reveal>
+          <h2 className="mt-8 font-display text-5xl md:text-8xl leading-[0.95] text-balance">
+            Moments, <em className="gold-text italic">framed in light</em>.
+          </h2>
+        </Reveal>
+        <motion.div
+          style={{ y }}
+          className="mt-20 grid grid-cols-2 md:grid-cols-4 auto-rows-[180px] md:auto-rows-[220px] gap-4"
+        >
+          {galleryImages.map((img, i) => (
+            <Reveal key={i} delay={(i % 4) * 0.08}>
+              <div className={`group relative h-full w-full overflow-hidden rounded-2xl border border-gold/10 ${img.span}`}>
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full object-cover scale-105 group-hover:scale-110 transition-transform duration-[1400ms] ease-out"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity duration-700" />
+                <div className="absolute bottom-3 left-4 right-4 text-[10px] tracking-[0.3em] uppercase text-foreground/80 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-500">
+                  {img.alt}
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
