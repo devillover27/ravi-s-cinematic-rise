@@ -589,12 +589,13 @@ export function Legacy() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], ["20%", "-20%"]);
-  const blur = useTransform(scrollYProgress, [0, 0.5, 1], ["8px", "0px", "8px"]);
+  const blurPx = useTransform(scrollYProgress, [0, 0.5, 1], [8, 0, 8]);
+  const filter = useTransform(blurPx, (b) => `blur(${b}px)`);
   return (
     <section id="legacy" ref={ref} className="relative py-40 overflow-hidden grain">
       <div className="mx-auto max-w-7xl px-6 md:px-10 grid lg:grid-cols-12 gap-16 items-center">
         <motion.div style={{ y }} className="lg:col-span-5 relative">
-          <motion.div style={{ filter: useTransform(blur, (b) => `blur(${b})`) as unknown as string }} className="rounded-2xl overflow-hidden border border-gold/15">
+          <motion.div style={{ filter }} className="rounded-2xl overflow-hidden border border-gold/15">
             <img src={legacyImg} alt="Cinematic side-profile portrait" className="w-full h-[70vh] object-cover" width={1280} height={1600} loading="lazy" />
           </motion.div>
           <div className="absolute -inset-6 -z-10 bg-gold/10 blur-3xl rounded-full" />
