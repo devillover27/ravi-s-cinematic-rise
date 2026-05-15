@@ -47,7 +47,7 @@ export function Hero() {
   return (
     <section id="top" ref={ref} className="relative h-[110vh] w-full overflow-hidden grain vignette">
       <motion.div style={{ y, scale }} className="absolute inset-0">
-        <img src={heroStage} alt="Ravi Kumar Manda performing on stage under a golden spotlight" className="h-full w-full object-cover" width={1920} height={1280} />
+        <img src={raviStage} alt="Ravi Kumar Manda performing on stage under a golden spotlight" className="h-full w-full object-cover object-[center_20%]" width={1920} height={1280} />
         <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/20 to-background" />
       </motion.div>
       <Particles count={50} />
