@@ -15,7 +15,7 @@ const links = [
   { id: "contact", label: "Contact" },
 ];
 
-export function Nav({ audioOn, onToggleAudio }: { audioOn: boolean; onToggleAudio: () => void }) {
+export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80);
@@ -39,28 +39,13 @@ export function Nav({ audioOn, onToggleAudio }: { audioOn: boolean; onToggleAudi
             <a key={l.id} href={`#${l.id}`} className="hover:text-gold transition-colors">{l.label}</a>
           ))}
         </nav>
-        <div className="flex items-center gap-3">
-          <button
-            onClick={onToggleAudio}
-            aria-label="Toggle ambient soundtrack"
-            className="glass rounded-full px-3 py-2 flex items-center gap-2 text-[10px] tracking-[0.25em] uppercase text-foreground/80 hover:text-gold transition-colors"
-          >
-            <span className="flex items-end gap-[2px] h-3">
-              {[0, 1, 2, 3].map((i) => (
-                <span
-                  key={i}
-                  className="w-[2px] bg-gold origin-bottom"
-                  style={{
-                    height: "100%",
-                    animation: audioOn ? `equalizer 0.${6 + i}s ease-in-out ${i * 0.1}s infinite` : "none",
-                    transform: audioOn ? undefined : "scaleY(0.2)",
-                  }}
-                />
-              ))}
-            </span>
-            {audioOn ? "Sound On" : "Sound Off"}
-          </button>
-        </div>
+        <a
+          href="#contact"
+          className="hidden md:inline-flex items-center gap-3 glass rounded-full px-4 py-2 text-[10px] tracking-[0.25em] uppercase text-foreground/80 hover:text-gold transition-colors"
+        >
+          <span className="h-1.5 w-1.5 rounded-full bg-gold animate-pulse" />
+          Get in touch
+        </a>
       </div>
     </motion.header>
   );
