@@ -1,11 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { useLenis } from "@/hooks/use-lenis";
 import { CinematicLoader } from "@/components/cine/Loader";
 import { Nav } from "@/components/cine/Nav";
+import { MusicPlayer } from "@/components/cine/MusicPlayer";
 import {
-  Hero, Origin, Music, Stage, Studio, Brands, UAE, Vizagites,
+  Hero, Origin, Music, Stage, Gallery, Studio, Brands, UAE, Vizagites,
   Timeline, Industries, Legacy, Contact,
 } from "@/components/cine/Sections";
 
@@ -23,8 +24,6 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   useLenis();
-  const [audioOn, setAudioOn] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
   const cursorRef = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 25, mass: 0.4 });
@@ -46,17 +45,6 @@ function Index() {
     return () => { window.removeEventListener("mousemove", onMove); cancelAnimationFrame(raf); };
   }, []);
 
-  const toggleAudio = () => {
-    if (!audioRef.current) {
-      // Soft ambient chord (data URI) — silent placeholder; real track can be wired later
-      audioRef.current = new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_19f5b3b540.mp3?filename=cinematic-ambient-piano-3-148636.mp3");
-      audioRef.current.loop = true;
-      audioRef.current.volume = 0.35;
-    }
-    if (audioOn) { audioRef.current.pause(); setAudioOn(false); }
-    else { audioRef.current.play().catch(() => {}); setAudioOn(true); }
-  };
-
   return (
     <main className="relative bg-background text-foreground">
       <CinematicLoader />
@@ -74,12 +62,14 @@ function Index() {
         className="pointer-events-none fixed top-0 left-0 z-[55] h-8 w-8 rounded-full border border-gold/70 mix-blend-difference hidden md:block"
       />
 
-      <Nav audioOn={audioOn} onToggleAudio={toggleAudio} />
+      <Nav />
+      <MusicPlayer />
 
       <Hero />
       <Origin />
       <Music />
       <Stage />
+      <Gallery />
       <Studio />
       <Brands />
       <UAE />

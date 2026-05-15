@@ -7,6 +7,9 @@ import studioImg from "@/assets/studio.jpg";
 import dubaiImg from "@/assets/dubai.jpg";
 import concertImg from "@/assets/concert.jpg";
 import legacyImg from "@/assets/legacy-portrait.jpg";
+import raviPortrait from "@/assets/ravi-portrait.jpg";
+import raviStage from "@/assets/ravi-stage.jpg";
+import raviEvent from "@/assets/ravi-event.jpg";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -44,7 +47,7 @@ export function Hero() {
   return (
     <section id="top" ref={ref} className="relative h-[110vh] w-full overflow-hidden grain vignette">
       <motion.div style={{ y, scale }} className="absolute inset-0">
-        <img src={heroStage} alt="Ravi Kumar Manda performing on stage under a golden spotlight" className="h-full w-full object-cover" width={1920} height={1280} />
+        <img src={raviStage} alt="Ravi Kumar Manda performing on stage under a golden spotlight" className="h-full w-full object-cover object-[center_20%]" width={1920} height={1280} />
         <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/20 to-background" />
       </motion.div>
       <Particles count={50} />
@@ -247,7 +250,7 @@ export function Stage() {
   return (
     <section id="stage" ref={ref} className="relative h-[140vh] overflow-hidden grain vignette">
       <motion.div style={{ scale }} className="absolute inset-0">
-        <img src={concertImg} alt="A vast concert crowd lit by golden spotlights" className="h-full w-full object-cover" width={1920} height={1080} loading="lazy" />
+        <img src={raviPortrait} alt="Ravi Kumar Manda speaking on stage with a microphone" className="h-full w-full object-cover" width={1920} height={1080} loading="lazy" />
         <div className="absolute inset-0 bg-background/40" />
       </motion.div>
 
@@ -596,7 +599,7 @@ export function Legacy() {
       <div className="mx-auto max-w-7xl px-6 md:px-10 grid lg:grid-cols-12 gap-16 items-center">
         <motion.div style={{ y }} className="lg:col-span-5 relative">
           <motion.div style={{ filter }} className="rounded-2xl overflow-hidden border border-gold/15">
-            <img src={legacyImg} alt="Cinematic side-profile portrait" className="w-full h-[70vh] object-cover" width={1280} height={1600} loading="lazy" />
+            <img src={raviEvent} alt="Ravi Kumar Manda — portrait at an industry event" className="w-full h-[70vh] object-cover" width={1280} height={1600} loading="lazy" />
           </motion.div>
           <div className="absolute -inset-6 -z-10 bg-gold/10 blur-3xl rounded-full" />
         </motion.div>
@@ -693,6 +696,55 @@ export function Contact() {
           <div>© {new Date().getFullYear()} Ravi Kumar Manda. All rights reserved.</div>
           <div className="font-display italic">— A cinematic portfolio.</div>
         </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- GALLERY ---------- */
+const galleryImages = [
+  { src: raviStage, alt: "Ravi performing live on stage", span: "md:col-span-2 md:row-span-2" },
+  { src: raviPortrait, alt: "Ravi addressing an audience", span: "" },
+  { src: raviEvent, alt: "Ravi at an industry event", span: "md:row-span-2" },
+  { src: concertImg, alt: "Concert lights and crowd", span: "" },
+  { src: studioImg, alt: "Inside the recording studio", span: "md:col-span-2" },
+  { src: dubaiImg, alt: "Dubai skyline at golden hour", span: "" },
+];
+
+export function Gallery() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const y = useTransform(scrollYProgress, [0, 1], ["8%", "-8%"]);
+  return (
+    <section id="gallery" ref={ref} className="relative py-40 overflow-hidden">
+      <div className="mx-auto max-w-7xl px-6 md:px-10">
+        <SectionLabel n="07" label="Frames From The Journey" />
+        <Reveal>
+          <h2 className="mt-8 font-display text-5xl md:text-8xl leading-[0.95] text-balance">
+            Moments, <em className="gold-text italic">framed in light</em>.
+          </h2>
+        </Reveal>
+        <motion.div
+          style={{ y }}
+          className="mt-20 grid grid-cols-2 md:grid-cols-4 auto-rows-[180px] md:auto-rows-[220px] gap-4"
+        >
+          {galleryImages.map((img, i) => (
+            <Reveal key={i} delay={(i % 4) * 0.08}>
+              <div className={`group relative h-full w-full overflow-hidden rounded-2xl border border-gold/10 ${img.span}`}>
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full object-cover scale-105 group-hover:scale-110 transition-transform duration-[1400ms] ease-out"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity duration-700" />
+                <div className="absolute bottom-3 left-4 right-4 text-[10px] tracking-[0.3em] uppercase text-foreground/80 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-500">
+                  {img.alt}
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </motion.div>
       </div>
     </section>
   );
